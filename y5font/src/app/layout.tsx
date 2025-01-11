@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${fontPretendard.variable}`} suppressHydrationWarning>
-      <body className="font-pretendard w-full">
+      <body className="font-pretendard w-full scrollbar-hide">
         <HomeHeader />
         {children}
         <Toaster />

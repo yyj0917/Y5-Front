@@ -3,10 +3,11 @@ import { NavButton } from './nav-button';
 import { TextLogo } from './text-logo';
 import { Button } from './ui/button';
 import { AboutCredit } from './about-credit';
+import Link from 'next/link';
 
 export default function HomeHeader() {
   return (
-    <header className="px-10 w-full flex justify-center border-b border-neutral-100 dark:border-neutral-800 z-50">
+    <header className="sticky top-0 px-10 w-full flex justify-center border-b border-neutral-100 dark:border-neutral-800 z-50 bg-white">
       <nav className="w-full max-xl:max-w-none">
         {/* Tablet, Desktop: Nav */}
         <div className="w-full h-14 hidden md:flex items-center justify-between">
@@ -16,8 +17,12 @@ export default function HomeHeader() {
               <Button variant="link" className="text-[16px] text-upBitLightBlue font-semibold">
                 Home
               </Button>
-              <NavButton className="text-[16px] text-upBitLightBlue font-semibold">Article</NavButton>
-              <NavButton className="text-[16px] text-upBitLightBlue font-semibold">Blog</NavButton>
+              <Link href={'/article/list'}>
+                <NavButton className="text-[16px] text-upBitLightBlue font-semibold">Article</NavButton>
+              </Link>
+              <Link href={'/blog/list'}>
+                <NavButton className="text-[16px] text-upBitLightBlue font-semibold">Blog</NavButton>
+              </Link>
             </div>
           </div>
           <div className="flex items-center gap-4">

@@ -46,14 +46,25 @@ export default function Home() {
                     <span>블록체인을 활용해 글과 출처를 영구히 보존합니다.</span>
                     <span>임의 수정, 삭제 없이 신뢰할 만한 기록을 남겨보세요.</span>
                   </h3>
-                  <AboutCredit>
-                    <Button
-                      variant="link"
-                      size="custom"
-                      className="self-start pl-0.5 my-6 text-[13px] text-neutral-700 space-x-1 font-semibold dark:text-neutral-200 focus:ring-0 focus-visible:ring-0">
-                      <span>CredIT</span> 서비스 안내 →
-                    </Button>
-                  </AboutCredit>
+                  <div className='flex flex-col'>
+                    <AboutCredit>
+                      <Button
+                        variant="link"
+                        size="custom"
+                        className="self-start pl-0.5 my-6 text-[13px] text-neutral-700 space-x-1 font-semibold dark:text-neutral-200 focus:ring-0 focus-visible:ring-0">
+                        <span>CredIT</span> 서비스 안내 →
+                      </Button>
+                    </AboutCredit>
+                    <Link href={'/retrieve'}>
+                      <Button
+                        variant="link"
+                        size='custom'
+                        className='text-upBitLightBlue flex items-center gap-1 font-bold'>
+                          <span>지갑 주소로 글 검색하기</span>
+                          <span><SearchIcon size={16} strokeWidth={2}/></span>
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
               <div className="absolute w-full h-full inset-0 hidden lg:block">
