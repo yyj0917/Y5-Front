@@ -49,23 +49,20 @@ export default function HomeHeader() {
         </div>
         {/* Mobile: Nav */}
         <div className="flex md:hidden flex-col">
-          <div className="pt-2.5 flex items-center justify-between">
+          <div className="pl-3 pt-2.5 flex items-center justify-between">
             <TextLogo />
           </div>
           <div className="flex items-center justify-between">
             <div className="space-x-4">
-              <Button variant="link" className="text-sm text-upBitLightBlue font-bold px-0">
+              <Button variant="link" className="text-[16px] text-upBitLightBlue font-semibold">
                 Home
               </Button>
-              <NavButton className="text-sm text-upBitLightBlue dark:text-neutral-200 font-semibold px-0">
-                Exclusive
-              </NavButton>
-              <NavButton className="text-sm text-upBitLightBlue dark:text-neutral-200 font-semibold px-0">
-                New
-              </NavButton>
-              <NavButton className="text-sm text-upBitLightBlue dark:text-neutral-200 font-semibold px-0">
-                Brands
-              </NavButton>
+              <Link href={'/article/list'}>
+                <NavButton className="text-[16px] text-upBitLightBlue font-semibold">Article</NavButton>
+              </Link>
+              <Link href={'/blog/list'}>
+                <NavButton className="text-[16px] text-upBitLightBlue font-semibold">Blog</NavButton>
+              </Link>
             </div>
             <AboutCredit useShortcut>
               <Button

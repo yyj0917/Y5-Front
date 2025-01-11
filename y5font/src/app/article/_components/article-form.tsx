@@ -78,7 +78,7 @@ export function ArticleForm() {
                   {field.type === 'textarea' ? (
                     <Textarea
                       placeholder={field.placeholder}
-                      className="w-full h-[300px] rounded-xl"
+                      className="w-full h-[200px] rounded-xl"
                       {...controllerField}
                     />
                   ) : (

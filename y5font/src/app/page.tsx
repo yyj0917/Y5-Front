@@ -20,10 +20,10 @@ export default function Home() {
             <div className="container px-20 max-xl:max-w-none lg:px-32">
               <div className="w-full flex items-center">
                 <div className="relative w-full lg:max-w-140 z-10  gap-10 lg:px-6 select-none">
-                  <div className="inline-flex py-0.5 px-2 w-fit items-center justify-center text-xs text-neutral-50 font-semibold bg-dunamuMain rounded">
+                  <div className="inline-flex py-1 px-2 w-fit items-center justify-center text-xs text-neutral-50 font-semibold bg-dunamuMain rounded">
                     Credit Only
                   </div>
-                  <h2 className="mt-1 flex flex-col text-4xl max-sm:text-3xl font-extrabold dark:font-bold select-none">
+                  <h2 className="mt-2 flex flex-col text-4xl max-sm:text-3xl font-extrabold dark:font-bold select-none">
                     <span>Your Write,</span>
                     <span className="-mt-0.5 -tracking-[0.02em]">
                       Secured on <FlipWords words={words} />
