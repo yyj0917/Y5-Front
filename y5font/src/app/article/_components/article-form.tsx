@@ -6,9 +6,10 @@ import { z } from 'zod';
 
 import { toast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { PostArticleNews } from '@/lib/api/article-news';
 
 const FormSchema = z.object({
   title: z.string().min(2, {
@@ -16,6 +17,9 @@ const FormSchema = z.object({
   }),
   userwallet: z.string().min(2, {
     message: 'Username must be at least 2 characters.',
+  }),
+  privateKey: z.string().min(2, {
+    message: 'Private Key must be at least 2 characters.',
   }),
   textarea: z.string().min(2, {
     message: 'Textarea must be at least 2 characters.',
@@ -31,12 +35,22 @@ export function ArticleForm() {
     defaultValues: {
       title: '',
       userwallet: '',
+      privateKey: '',
       textarea: '',
       source: '',
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    try {
+      const formattedData = {
+        ...data,
+        source: data.source.split(',').map((item) => item.trim()), // ','로 분리 및 공백 제거
+      };
+      await PostArticleNews(formattedData);
+    } catch (err) {
+      console.log(err);
+    }
     toast({
       title: 'You submitted the following values:',
       description: (
@@ -55,6 +69,12 @@ export function ArticleForm() {
     { name: 'title', label: 'Title', type: 'input', placeholder: 'Enter the article title' },
     { name: 'userwallet', label: 'User Wallet', type: 'input', placeholder: 'Enter the your coin wallet address' },
     {
+      name: 'privateKey',
+      label: 'Private Key',
+      type: 'input',
+      placeholder: 'Enter your private key',
+    },
+    {
       name: 'textarea',
       label: 'Description',
       type: 'textarea',
@@ -65,31 +85,61 @@ export function ArticleForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 flex flex-col space-y-3">
-        {fields.map((field) => (
-          <FormField
-            key={field.name}
-            control={form.control}
-            name={`${field.name}`}
-            render={({ field: controllerField }) => (
-              <FormItem>
-                <FormLabel>{field.label}</FormLabel>
-                <FormControl>
-                  {field.type === 'textarea' ? (
-                    <Textarea
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 flex flex-col gap-2">
+        {fields.map((field) => {
+          if (field.name === 'userwallet') {
+            // 분리된 User Wallet과 Private Key
+            return (
+              <FormItem key={field.name} className="flex gap-4 w-full h-auto items-center">
+                <div className="flex-1 p-0">
+                  <FormLabel>{field.label}</FormLabel>
+                  <FormControl>
+                    <Input
                       placeholder={field.placeholder}
-                      className="w-full h-[200px] rounded-xl"
-                      {...controllerField}
+                      className="rounded-xl w-full"
+                      {...form.register('userwallet')}
                     />
-                  ) : (
-                    <Input placeholder={field.placeholder} className="rounded-xl" {...controllerField} />
-                  )}
-                </FormControl>
-                <FormMessage />
+                  </FormControl>
+                </div>
+                <div className="flex-1 p-0">
+                  <FormLabel>Private Key</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter your private key"
+                      className="rounded-xl w-full"
+                      {...form.register('privateKey')}
+                    />
+                  </FormControl>
+                </div>
               </FormItem>
-            )}
-          />
-        ))}
+            );
+          } else if (field.name !== 'privateKey') {
+            // 일반 필드
+            return (
+              <FormField
+                key={field.name}
+                control={form.control}
+                name={field.name}
+                render={({ field: controllerField }) => (
+                  <FormItem>
+                    <FormLabel>{field.label}</FormLabel>
+                    <FormControl>
+                      {field.type === 'textarea' ? (
+                        <Textarea
+                          placeholder={field.placeholder}
+                          className="w-full h-[200px] rounded-xl"
+                          {...controllerField}
+                        />
+                      ) : (
+                        <Input placeholder={field.placeholder} className="rounded-xl" {...controllerField} />
+                      )}
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            );
+          }
+        })}
         <Button type="submit" className="rounded-xl bg-upBitLightBlue">
           Submit
         </Button>

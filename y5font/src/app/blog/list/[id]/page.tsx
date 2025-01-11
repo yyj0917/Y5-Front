@@ -52,11 +52,11 @@ export default function BlogDetails({ params }: { params: { id: string } }, { ar
         <header className="text-xl md:text-xl text-upBitBlus font-bold">
           <h1>CredIT Blog Details</h1>
         </header>
-        <section className="w-[50%] h-auto flex flex-col justify-center items-center">
+        <section className="p-4 w-[50%] h- flex flex-col justify-center items-center shadow-2xl rounded-xl">
           {isEditMode ? (
             <EditBlogForm initialValues={blogData} onSubmit={handleSubmit} handleCancel={handleCancel} />
           ) : (
-            <div className="w-full h-40 flex flex-col items-start gap-6">
+            <div className="w-full h-auto flex flex-col items-start gap-6">
               <h2 className="w-full text-center text-lg font-bold">{blogData.title}</h2>
               <p>{blogData.textarea}</p>
               <p>Source : {blogData.source}</p>

@@ -59,11 +59,11 @@ export default function ArticleDetails({ params }: { params: { id: string } }, {
         <header className="text-xl md:text-xl text-upBitBlus font-bold">
           <h1>CredIT Article Details</h1>
         </header>
-        <section className="w-[50%] h-auto flex flex-col justify-center items-center">
+        <section className="p-4 w-[50%] h- flex flex-col justify-center items-center shadow-2xl rounded-xl">
           {isEditMode ? (
             <EditArticleForm initialValues={articleData} onSubmit={handleSubmit} handleCancel={handleCancel} />
           ) : (
-            <div className="w-full h-40 flex flex-col items-start gap-6">
+            <div className="w-full h-auto flex flex-col items-start gap-6">
               <h2 className="w-full text-center text-lg font-bold">{articleData.title}</h2>
               <p>{articleData.textarea}</p>
               <p>Source : {articleData.source}</p>

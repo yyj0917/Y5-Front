@@ -22,13 +22,15 @@ export default function ArticleCard({ id, title, textarea, author, date }: Artic
           <h2 className="text-lg font-light text-gray-800 mt-2 line-clamp-5">{textarea}</h2>
         </div>
         <p className="flex justify-between text-sm text-gray-500 mb-4">
-            <span>Last Updated</span>
-            <span className='text-upBitLightBlue font-bold'>{date}</span>
+          <span>Last Updated</span>
+          <span className="text-upBitLightBlue font-bold">{date}</span>
         </p>
         <footer className="flex justify-between items-center text-sm text-gray-600">
           {/* wallet address too long */}
           <span className="text-upBitLightBlue line-clamp-1">by {author}</span>
-          <span className='text-white bg-upBitLightBlue rounded-full'><BadgeEuro/></span>
+          <span className="text-white bg-upBitLightBlue rounded-full">
+            <BadgeEuro />
+          </span>
         </footer>
       </div>
     </Link>
