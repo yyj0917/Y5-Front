@@ -5,6 +5,7 @@ import { RetrieveForm } from './_components/retrieve-form';
 import ArticleCard from '../article/_components/article-card';
 import { fetchUserArticleList, fetchUserBlogList } from '@/lib/api/user-article';
 import BlogCard from '../blog/_components/blog-card';
+import LoadingSpinner from '@/components/loading-spinner';
 
 const fetchArticles = async (walletAddress: string) => {
   // 실제 API 호출 시 이 부분을 대체하세요.
@@ -55,7 +56,7 @@ export default function RetrievePage() {
       {currentPage === 'result' ? (
         <section className="mt-10 w-[80%] h-auto flex flex-col justify-center items-center">
           {isLoading ? (
-            <LoadingSpinner /> // 로딩 중일 때 로딩 애니메이션 표시
+            <LoadingSpinner/> // 로딩 중일 때 로딩 애니메이션 표시
           ) : (
             <section className="w-full h-auto flex flex-col items-center overflow-y-auto scrollbar-hide">
               <main className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 scrollbar-hide">
@@ -93,10 +94,4 @@ export default function RetrievePage() {
     </div>
   );
 }
-export function LoadingSpinner() {
-  return (
-    <div className="flex items-center justify-center">
-      <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-upBitLightBlue border-opacity-75"></div>
-    </div>
-  );
-}
+
