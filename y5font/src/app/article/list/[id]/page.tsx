@@ -1,10 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useState } from 'react';
 import { EditArticleForm } from '../../_components/edit-article-form';
 import { AlertEdit } from '@/components/alert-edit';
 
-export default function ArticleDetails({ params }: { params: { id: string } }, { article }: { article: any }) {
+type Article = {
+  title: string;
+  textarea: string;
+  walletAddress: string;
+  source: string;
+};
+
+export default function ArticleDetails({ params }: { params: { id: string } }, { article }: { article: Article }) {
   const { id } = params;
   // 수정 모드 상태
   const [isEditMode, setIsEditMode] = useState(false);
@@ -12,9 +20,9 @@ export default function ArticleDetails({ params }: { params: { id: string } }, {
 
   const [articleData, setArticleData] = useState({
     title: 'Sample Title',
+    usewallet: '0xSampleWallet',
     textarea:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-    walletAddress: '0xSampleWallet',
     source: 'Sample Source',
   });
   // 수정 버튼 클릭 핸들러
@@ -59,7 +67,7 @@ export default function ArticleDetails({ params }: { params: { id: string } }, {
               <h2 className="w-full text-center text-lg font-bold">{articleData.title}</h2>
               <p>{articleData.textarea}</p>
               <p>Source : {articleData.source}</p>
-              <p>Wallet : {articleData.walletAddress}</p>
+              <p>Wallet : {articleData.usewallet}</p>
               <p>Last Updated : {new Date().toLocaleDateString()}</p>
               <button className="w-full px-4 py-2 bg-upBitLightBlue text-white rounded-xl" onClick={handleEdit}>
                 Edit
