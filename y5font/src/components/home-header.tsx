@@ -15,15 +15,15 @@ export default function HomeHeader() {
             <TextLogo />
             <div className="flex space-x-1">
               <Link href={'/'}>
-                <Button variant="link" className="text-[16px] text-upBitLightBlue font-semibold">
+                <Button variant="link" className="text-[16px] text-dunamuMain font-bold">
                   Home
                 </Button>
               </Link>
               <Link href={'/article/list'}>
-                <NavButton className="text-[16px] text-upBitLightBlue font-semibold">Article</NavButton>
+                <NavButton className="text-[16px] text-dunamuMain font-bold">Article</NavButton>
               </Link>
               <Link href={'/blog/list'}>
-                <NavButton className="text-[16px] text-upBitLightBlue font-semibold">Blog</NavButton>
+                <NavButton className="text-[16px] text-dunamuMain font-bold">Blog</NavButton>
               </Link>
             </div>
           </div>
@@ -32,7 +32,7 @@ export default function HomeHeader() {
               <Button
                 variant="outline"
                 size="sm"
-                className="pl-4 pr-2 max-lg:pr-5 py-4 text-dunamuWhite space-x-4 bg-upBitLightBlue border-white rounded">
+                className="pl-4 pr-2 max-lg:pr-5 py-4 text-dunamuWhite space-x-4 bg-dunamuMain border-white rounded">
                 <div className="flex items-center space-x-2">
                   <SearchIcon size={14} />
                   <div className="font-normal space-x-1">
@@ -57,22 +57,22 @@ export default function HomeHeader() {
           <div className="flex items-center justify-between">
             <div className="space-x-4">
               <Link href={'/'}>
-                <Button variant="link" className="text-[16px] text-upBitLightBlue font-semibold">
+                <Button variant="link" className="text-[16px] text-dunamuMain font-bold">
                   Home
                 </Button>
               </Link>
               <Link href={'/article/list'}>
-                <NavButton className="text-[16px] text-upBitLightBlue font-semibold">Article</NavButton>
+                <NavButton className="text-[16px] text-dunamuMain font-bold">Article</NavButton>
               </Link>
               <Link href={'/blog/list'}>
-                <NavButton className="text-[16px] text-upBitLightBlue font-semibold">Blog</NavButton>
+                <NavButton className="text-[16px] text-dunamuMain font-bold">Blog</NavButton>
               </Link>
             </div>
             <AboutCredit useShortcut>
               <Button
                 variant="outline"
                 size="sm"
-                className="pl-4 pr-2 max-lg:pr-5 py-4 text-dunamuWhite space-x-4 bg-upBitLightBlue rounded dark:text-neutral-300">
+                className="pl-4 pr-2 max-lg:pr-5 py-4 text-dunamuWhite space-x-4 bg-dunamuMain rounded dark:text-neutral-300">
                 <div className="flex items-center space-x-2">
                   <SearchIcon size={14} />
                   <div className="font-normal space-x-1">

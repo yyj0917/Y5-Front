@@ -1,12 +1,10 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
-import { SearchIcon } from 'lucide-react';
+import { BadgeEuro, SearchIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { TextLogo } from '@/components/text-logo';
 import { MemberCard } from '@/components/member-card';
 import { AboutCredit } from '@/components/about-credit';
-import { NavButton } from '@/components/nav-button';
 import { FlipWords } from '@/components/ui/filp-words';
 
 export default function Home() {
@@ -31,12 +29,12 @@ export default function Home() {
                   </h2>
                   <div className="flex items-center gap-2">
                     <Link href="/article/write">
-                      <Button variant={'primary'} size={'lg'} className="w-[140px] mt-6 rounded bg-upBitLightBlue">
+                      <Button variant={'primary'} size={'lg'} className="w-[140px] mt-6 rounded bg-dunamuMain">
                         기사 작성하기
                       </Button>
                     </Link>
                     <Link href="/blog/write">
-                      <Button variant={'primary'} size={'lg'} className="w-[140px] mt-6 rounded bg-upBitLightBlue">
+                      <Button variant={'primary'} size={'lg'} className="w-[140px] mt-6 rounded bg-dunamuMain">
                         블로그 글쓰기
                       </Button>
                     </Link>
@@ -59,10 +57,21 @@ export default function Home() {
                       <Button
                         variant="link"
                         size="custom"
-                        className="w-auto text-upBitLightBlue flex items-center gap-1 font-bold">
+                        className="w-auto text-dunamuMain flex items-center gap-1 font-bold">
                         <span>지갑 주소로 글 검색하기</span>
                         <span>
-                          <SearchIcon size={16} strokeWidth={2} />
+                          <SearchIcon size={16} strokeWidth={2.5} />
+                        </span>
+                      </Button>
+                    </Link>
+                    <Link href={'/verify'}>
+                      <Button
+                        variant="link"
+                        size="custom"
+                        className="mt-2 w-auto text-dunamuMain flex items-center gap-1 font-bold">
+                        <span>NFT 토큰 발행으로 CredIT 인증받기</span>
+                        <span>
+                          <BadgeEuro size={16} strokeWidth={2.5} />
                         </span>
                       </Button>
                     </Link>
