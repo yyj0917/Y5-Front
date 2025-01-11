@@ -62,32 +62,35 @@ export function AboutCredit({ children, useShortcut = false }: AboutSlyceProps) 
               <span>?</span>
             </DialogTitle>
             <DialogDescription className="pt-0.5 text-sm text-neutral-800 dark:text-neutral-400 leading-[1.7]">
-              CredIT은 <span className='text-upBitBlus font-bold'>블록체인</span>을 활용해 글 자체와 그 출처 (인용 근거) 를 <span className='text-upBitBlus font-bold'>불변</span>형태로 기록합니다.
+              CredIT은 <span className="text-upBitBlus font-bold">블록체인</span>을 활용해 글 자체와 그 출처 (인용 근거)
+              를 <span className="text-upBitBlus font-bold">불변</span>형태로 기록합니다.
               <br />
-              누가 언제 어떤 내용, 출처를 작성했는지 <span className='text-upBitBlus font-bold'>임의 수정</span>이나 <span className='text-upBitBlus font-bold'>로그 삭제</span>없이 영구 보존하는 플랫폼, CredIT을 통해 글과 글의 출처를 분변형태로 기록하여 판별하세요.
+              누가 언제 어떤 내용, 출처를 작성했는지 <span className="text-upBitBlus font-bold">
+                임의 수정
+              </span>이나 <span className="text-upBitBlus font-bold">로그 삭제</span>없이 영구 보존하는 플랫폼, CredIT을
+              통해 글과 글의 출처를 분변형태로 기록하여 판별하세요.
             </DialogDescription>
           </DialogHeader>
           <ul className="mt-5 h-70 grid grid-cols-3 gap-4">
             <li className="group relative col-span-1 py-5 px-4 space-y-2 bg-neutral-50 dark:bg-neutral-900 border dark:border-neutral-700 rounded-md shadow-[0_3px_2px_0_rgba(0,0,0,0.08)] overflow-hidden">
               <h1 className="text-sm text-neutral-900 dark:text-neutral-50 font-bold">작성글 블록체인 기록</h1>
               <h2 className="text-xsb text-neutral-600 dark:text-neutral-400 font-normal">
-                자신 혹은 타인이 작성한 글을
-                블록체인에 기록된 형태로 확인하세요.
+                자신 혹은 타인이 작성한 글을 블록체인에 기록된 형태로 확인하세요.
               </h2>
             </li>
             <li className="group relative col-span-1 py-5 px-4 space-y-2 bg-neutral-50 dark:bg-neutral-900 border dark:border-neutral-700 rounded-md shadow-[0_3px_2px_0_rgba(0,0,0,0.08)] overflow-hidden">
               <h1 className="text-sm text-neutral-900 dark:text-neutral-50 font-bold">임의 수정 방지</h1>
               <h2 className="text-xsb text-neutral-600 dark:text-neutral-400 font-normal">
-                블록체인에 기록된 내용은 임의로 삭제, 변경하기가 어렵기 때문에
-                가짜뉴스, 거짓정보 조작을 막을 수 있습니다.
+                블록체인에 기록된 내용은 임의로 삭제, 변경하기가 어렵기 때문에 가짜뉴스, 거짓정보 조작을 막을 수
+                있습니다.
               </h2>
               {/* <FigureB className="absolute top-25 left-17 z-10" /> */}
             </li>
             <li className="group relative col-span-1 py-5 px-4 space-y-2 bg-neutral-50 dark:bg-neutral-900 border dark:border-neutral-700 rounded-md shadow-[0_3px_2px_0_rgba(0,0,0,0.08)] overflow-hidden">
               <h1 className="text-sm text-neutral-900 dark:text-neutral-50 font-bold">출처 연동</h1>
               <h2 className="text-xsb text-neutral-600 dark:text-neutral-400 font-normal">
-                문장별로 인용 근거나 통계출처를 블록체인에 기록하고,
-                사용자는 기록된 수정사항과 출처를 투명하게 조회할 수 있습니다.
+                문장별로 인용 근거나 통계출처를 블록체인에 기록하고, 사용자는 기록된 수정사항과 출처를 투명하게 조회할
+                수 있습니다.
               </h2>
               {/* <FigureC className="absolute top-25 left-8" /> */}
             </li>
@@ -110,9 +113,13 @@ export function AboutCredit({ children, useShortcut = false }: AboutSlyceProps) 
               <span>?</span>
             </DrawerTitle>
             <DrawerDescription className="text-xs max-sm:text-xsb text-neutral-500 dark:text-neutral-400 font-light leading-[1.7]">
-              CredIT은 <span className='text-upBitBlus font-bold'>블록체인</span>을 활용해 글 자체와 그 출처 (인용 근거) 를 <span className='text-upBitBlus font-bold'>불변</span>형태로 기록합니다.
+              CredIT은 <span className="text-upBitBlus font-bold">블록체인</span>을 활용해 글 자체와 그 출처 (인용 근거)
+              를 <span className="text-upBitBlus font-bold">불변</span>형태로 기록합니다.
               <br />
-              누가 언제 어떤 내용, 출처를 작성했는지 <span className='text-upBitBlus font-bold'>임의 수정</span>이나 <span className='text-upBitBlus font-bold'>로그 삭제</span>없이 영구 보존하는 플랫폼, CredIT을 통해 글과 글의 출처를 분변형태로 기록하여 판별하세요.
+              누가 언제 어떤 내용, 출처를 작성했는지 <span className="text-upBitBlus font-bold">
+                임의 수정
+              </span>이나 <span className="text-upBitBlus font-bold">로그 삭제</span>없이 영구 보존하는 플랫폼, CredIT을
+              통해 글과 글의 출처를 분변형태로 기록하여 판별하세요.
             </DrawerDescription>
           </DrawerHeader>
           <ul className="mt-3 px-4 pb-12 flex flex-col gap-5">
@@ -122,8 +129,7 @@ export function AboutCredit({ children, useShortcut = false }: AboutSlyceProps) 
               </div>
               <h1 className="text-lgb text-neutral-900  font-bold">작성글 블록체인 기록</h1>
               <h2 className="text-sm text-neutral-600  font-bold">
-                자신 혹은 타인이 작성한 글을
-                블록체인에 기록된 형태로 확인하세요.
+                자신 혹은 타인이 작성한 글을 블록체인에 기록된 형태로 확인하세요.
               </h2>
               {/* <FigureA className="absolute top-[42%] -right-1 z-20 scale-[1.2] group-hover:scale-[1.3]" />
               <FigureA className="absolute top-[42%] translate-y-2 -right-4 z-10 scale-[1.2] group-hover:scale-[1.3]" /> */}
@@ -134,8 +140,8 @@ export function AboutCredit({ children, useShortcut = false }: AboutSlyceProps) 
               </div>
               <h1 className="text-lgb text-neutral-900 dark:text-neutral-50 font-bold">임의 수정 방지</h1>
               <h2 className="text-xs text-neutral-600 dark:text-neutral-400 font-bold">
-                블록체인에 기록된 내용은 임의로 삭제, 변경하기가 어렵기 때문에
-                가짜뉴스, 거짓정보 조작을 막을 수 있습니다. 
+                블록체인에 기록된 내용은 임의로 삭제, 변경하기가 어렵기 때문에 가짜뉴스, 거짓정보 조작을 막을 수
+                있습니다.
               </h2>
               {/* <FigureB className="absolute top-[45%] right-0 z-10 scale-[1.2]" /> */}
             </li>
@@ -145,8 +151,8 @@ export function AboutCredit({ children, useShortcut = false }: AboutSlyceProps) 
               </div>
               <h1 className="text-lgb text-neutral-900 dark:text-neutral-50 font-bold">출처 연동</h1>
               <h2 className="text-xs text-neutral-600 dark:text-neutral-400 font-bold">
-                문장별로 인용 근거나 통계출처를 블록체인에 기록하고,
-                사용자는 기록된 수정사항과 출처를 투명하게 조회할 수 있습니다.
+                문장별로 인용 근거나 통계출처를 블록체인에 기록하고, 사용자는 기록된 수정사항과 출처를 투명하게 조회할
+                수 있습니다.
               </h2>
               {/* <FigureC className="absolute top-[50%] -right-2 scale-[1.15]" /> */}
             </li>
