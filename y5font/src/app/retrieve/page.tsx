@@ -56,7 +56,7 @@ export default function RetrievePage() {
       {currentPage === 'result' ? (
         <section className="mt-10 w-[80%] h-auto flex flex-col justify-center items-center">
           {isLoading ? (
-            <LoadingSpinner/> // 로딩 중일 때 로딩 애니메이션 표시
+            <LoadingSpinner /> // 로딩 중일 때 로딩 애니메이션 표시
           ) : (
             <section className="w-full h-auto flex flex-col items-center overflow-y-auto scrollbar-hide">
               <main className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 scrollbar-hide">
@@ -94,4 +94,3 @@ export default function RetrievePage() {
     </div>
   );
 }
-
