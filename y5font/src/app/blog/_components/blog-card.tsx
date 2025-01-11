@@ -1,5 +1,6 @@
 import Link from 'next/link';
-
+import './../../globals.css';
+import { BadgeEuro } from 'lucide-react';
 type BlogCardProps = {
   title: string;
   id: number;
@@ -11,19 +12,22 @@ type BlogCardProps = {
 export default function BlogCard({ id, title, textarea, author, date }: BlogCardProps) {
   return (
     <Link href={`/blog/list/${id}`}>
-      <div className="p-4 flex flex-col gap-2 bg-white shadow-2xl rounded-xl overflow-hidden">
+      <div className="hover-float p-4 flex flex-col gap-2 bg-white shadow-2xl rounded-xl overflow-hidden">
         {/* title */}
-        <h1 className="text-dunamuMain text-lg font-bold">{title}</h1>
+        <h1 className="text-dunamuMain text-lg font-extrabold">{title}</h1>
 
         {/* text area for article */}
         <div className="h-40">
-          <h2 className="text-lg font-normal text-gray-800 mb-2 line-clamp-5">{textarea}</h2>
+          <h2 className="text-lg font-light text-gray-800 mt-2 line-clamp-5">{textarea}</h2>
         </div>
-        <p className="text-sm text-gray-500 mb-4">Last Update {date}</p>
+        <p className="flex justify-between text-sm text-gray-500 mb-4">
+            <span>Last Updated</span>
+            <span className='text-upBitLightBlue font-bold'>{date}</span>
+        </p>
         <footer className="flex justify-between items-center text-sm text-gray-600">
           {/* wallet address too long */}
           <span className="text-upBitLightBlue line-clamp-1">by {author}</span>
-          <span>❤️</span>
+          <span className='text-white bg-upBitLightBlue rounded-full'><BadgeEuro/></span>
         </footer>
       </div>
     </Link>

@@ -19,7 +19,7 @@ export default function Home() {
           <section className="relative flex-1 flex flex-col justify-center py-10 lg:py-16">
             <div className="container px-20 max-xl:max-w-none lg:px-32">
               <div className="w-full flex items-center">
-                <div className="relative w-full lg:max-w-140 z-10  gap-10 lg:px-6 select-none">
+                <div className="relative w-auto lg:max-w-140 z-10  gap-10 lg:px-6 select-none">
                   <div className="inline-flex py-1 px-2 w-fit items-center justify-center text-xs text-neutral-50 font-semibold bg-dunamuMain rounded">
                     Credit Only
                   </div>
@@ -59,7 +59,7 @@ export default function Home() {
                       <Button
                         variant="link"
                         size="custom"
-                        className="text-upBitLightBlue flex items-center gap-1 font-bold">
+                        className="w-auto text-upBitLightBlue flex items-center gap-1 font-bold">
                         <span>지갑 주소로 글 검색하기</span>
                         <span>
                           <SearchIcon size={16} strokeWidth={2} />
