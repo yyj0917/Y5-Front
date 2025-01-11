@@ -25,7 +25,6 @@ export function RetrieveForm() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-
     toast({
       title: 'You submitted the following values:',
       description: (
@@ -40,19 +39,18 @@ export function RetrieveForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 flex flex-col space-y-3">
         <FormField
-        control={form.control}
-        name='walletAddress'
-        render={({ field: controllerField }) => (
+          control={form.control}
+          name="walletAddress"
+          render={({ field: controllerField }) => (
             <FormItem>
-            <FormLabel>Enter the Wallet Address</FormLabel>
-            <FormDescription>Check the list of posts written through your wallet address.</FormDescription>
-            <FormControl>
-                <Input placeholder='Enter wallet address' className="rounded-xl" {...controllerField} />
-
-            </FormControl>
-            <FormMessage />
+              <FormLabel>Enter the Wallet Address</FormLabel>
+              <FormDescription>Check the list of posts written through your wallet address.</FormDescription>
+              <FormControl>
+                <Input placeholder="Enter wallet address" className="rounded-xl" {...controllerField} />
+              </FormControl>
+              <FormMessage />
             </FormItem>
-        )}
+          )}
         />
         <Button type="submit" className="rounded-xl bg-upBitLightBlue">
           Submit
