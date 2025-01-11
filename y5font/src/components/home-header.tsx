@@ -14,9 +14,11 @@ export default function HomeHeader() {
           <div className="flex items-center space-x-8">
             <TextLogo />
             <div className="flex space-x-1">
-              <Button variant="link" className="text-[16px] text-upBitLightBlue font-semibold">
-                Home
-              </Button>
+                <Link href={'/'}>
+                    <Button variant="link" className="text-[16px] text-upBitLightBlue font-semibold">
+                        Home
+                    </Button>
+                </Link>
               <Link href={'/article/list'}>
                 <NavButton className="text-[16px] text-upBitLightBlue font-semibold">Article</NavButton>
               </Link>
@@ -54,15 +56,17 @@ export default function HomeHeader() {
           </div>
           <div className="flex items-center justify-between">
             <div className="space-x-4">
-              <Button variant="link" className="text-[16px] text-upBitLightBlue font-semibold">
-                Home
-              </Button>
-              <Link href={'/article/list'}>
-                <NavButton className="text-[16px] text-upBitLightBlue font-semibold">Article</NavButton>
-              </Link>
-              <Link href={'/blog/list'}>
-                <NavButton className="text-[16px] text-upBitLightBlue font-semibold">Blog</NavButton>
-              </Link>
+                <Link href={'/'}>
+                    <Button variant="link" className="text-[16px] text-upBitLightBlue font-semibold">
+                        Home
+                    </Button>
+                </Link>
+                <Link href={'/article/list'}>
+                    <NavButton className="text-[16px] text-upBitLightBlue font-semibold">Article</NavButton>
+                </Link>
+                <Link href={'/blog/list'}>
+                    <NavButton className="text-[16px] text-upBitLightBlue font-semibold">Blog</NavButton>
+                </Link>
             </div>
             <AboutCredit useShortcut>
               <Button

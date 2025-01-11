@@ -23,7 +23,7 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css"
         />
       </head>
-      <body className="w-full scrollbar-hide" style={{ fontFamily: 'NanumSquareAc' }}>
+      <body className="w-full h-[100dvh]" style={{ fontFamily: 'NanumSquareAc' }}>
         <HomeHeader />
         {children}
         <Toaster />

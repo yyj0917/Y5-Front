@@ -13,7 +13,7 @@ export default function Home() {
   const words = ['BlockChain', 'Dunamu', 'Nodit'];
 
   return (
-    <div className="relative min-h-svh lg:min-h-screen flex flex-col">
+    <div className="relative min-h-[calc(100dvh-100px)]  flex flex-col">
       <div className="flex-1 flex flex-col">
         <main className="flex-1 flex flex-col ">
           <section className="relative flex-1 flex flex-col justify-center py-10 lg:py-16">
