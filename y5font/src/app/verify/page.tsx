@@ -47,7 +47,7 @@ export default function LoginPage() {
   }
   return (
     <div className="w-full h-[80vh] flex justify-center items-center">
-      <div className="border-dunamuMain border-2 rounded-3xl w-[400px] h-[400px] p-10 flex flex-col justify-around shadow-xl">
+      <div className="border-dunamuMain border-2 rounded-3xl w-[400px] h-[400px] p-10 flex flex-col justify-around shadow-md">
         <h1 className="flex justify-center items-center gap-2 text-2xl font-bold text-dunamuMain">
           <span>NFT 토큰 발행</span>
           <span>

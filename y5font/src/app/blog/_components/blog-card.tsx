@@ -22,12 +22,12 @@ export default function BlogCard({ id, title, textarea, author, date }: BlogCard
         </div>
         <p className="flex justify-between text-sm text-gray-500 mb-4">
           <span>Last Updated</span>
-          <span className="text-upBitLightBlue font-bold">{date}</span>
+          <span className="text-dunamuMain font-bold">{date}</span>
         </p>
         <footer className="flex justify-between items-center text-sm text-gray-600">
           {/* wallet address too long */}
-          <span className="text-upBitLightBlue line-clamp-1">by {author}</span>
-          <span className="text-white bg-upBitLightBlue rounded-full">
+          <span className="text-dunamuMain line-clamp-1 font-bold">by {author}</span>
+          <span className="text-white bg-dunamuMain rounded-full">
             <BadgeEuro />
           </span>
         </footer>

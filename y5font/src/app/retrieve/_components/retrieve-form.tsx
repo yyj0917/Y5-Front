@@ -6,8 +6,6 @@ import { toast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Divide } from 'lucide-react';
 
 const FormSchema = z.object({
   walletAddress: z.string().min(2, {
@@ -63,8 +61,14 @@ export function RetrieveForm({ handleSubmit }: RetrieveFormProps) {
           render={({ field: controllerField }) => (
             <FormItem>
               <div className="flex flex-col gap-3">
-                <FormLabel>Enter the Wallet Address</FormLabel>
-                <FormDescription>Check the list of posts written through your wallet address.</FormDescription>
+                <FormLabel>
+                  <p className="text-dunamuMain font-bold">Enter the Wallet Address</p>
+                </FormLabel>
+                <FormDescription>
+                  <p className="text-black font-semibold">
+                    Check the list of posts written through your wallet address.
+                  </p>
+                </FormDescription>
                 <FormControl>
                   <Input placeholder="Enter wallet address" className="rounded-xl" {...controllerField} />
                 </FormControl>
@@ -73,7 +77,7 @@ export function RetrieveForm({ handleSubmit }: RetrieveFormProps) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="rounded-xl bg-upBitLightBlue">
+        <Button type="submit" className="rounded-xl bg-dunamuMain">
           Submit
         </Button>
       </form>

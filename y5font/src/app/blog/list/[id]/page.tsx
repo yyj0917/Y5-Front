@@ -161,16 +161,13 @@ export default function BlogDetails({ params }: { params: { id: string } }, { ar
   return (
     <>
       <div className="mt-10 w-full flex flex-col gap-10 justify-center items-center">
-        <header className="text-xl md:text-xl text-upBitBlus font-bold">
-          <h1>CredIT Blog Details</h1>
-        </header>
         <section className="p-4 w-[80%] h- flex flex-col justify-center items-center shadow-2xl rounded-xl">
           {isEditMode ? (
             <EditBlogForm initialValues={blogData} onSubmit={handleSubmit} handleCancel={handleCancel} />
           ) : (
             <div className="w-full h-auto flex flex-col items-start gap-2">
               <h2 className="relative w-full text-center text-lg font-extrabold">
-                <span className="text-upBitLightBlue">{blogData.title}</span>
+                <span className="text-dunamuMain text-2xl">{blogData.title}</span>
                 {/* 페이지네이션 버튼 */}
                 <div className="w-full flex justify-between gap-4">
                   <div className="flex items-center gap-2">
@@ -220,7 +217,7 @@ export default function BlogDetails({ params }: { params: { id: string } }, { ar
               <p>Source : {blogData.source}</p>
               <p>Wallet : {blogData.walletAddress}</p>
               <p>Last Updated : {new Date().toLocaleDateString()}</p>
-              <button className="w-full px-4 py-2 bg-upBitLightBlue text-white rounded-xl" onClick={handleEdit}>
+              <button className="w-full px-4 py-2 bg-dunamuMain text-white rounded-xl" onClick={handleEdit}>
                 Edit
               </button>
             </div>

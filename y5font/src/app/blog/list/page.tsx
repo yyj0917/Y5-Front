@@ -4,7 +4,7 @@ export default function BlogListPage() {
   return (
     <div className="w-full h-auto flex flex-col items-center overflow-y-auto scrollbar-hide">
       <header className="px-4 pt-2">
-        <h1 className="text-2xl font-bold text-upBitLightBlue">CredIT Blog Post</h1>
+        <h1 className="text-2xl font-bold text-dunamuMain">CredIT Blog Post</h1>
       </header>
       <main className="w-[80%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 scrollbar-hide">
         {[...Array(8)].map((_, idx) => (

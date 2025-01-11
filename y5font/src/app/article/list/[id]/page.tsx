@@ -169,16 +169,13 @@ export default function ArticleDetails({ params }: { params: { id: string } }, {
   return (
     <>
       <div className="mt-10 w-full flex flex-col gap-10 justify-center items-center">
-        <header className="text-xl md:text-xl text-upBitBlus font-bold">
-          <h1>CredIT Article Details</h1>
-        </header>
         <section className="p-4 w-[80%] h- flex flex-col justify-center items-center shadow-2xl rounded-xl">
           {isEditMode ? (
             <EditArticleForm initialValues={articleData} onSubmit={handleSubmit} handleCancel={handleCancel} />
           ) : (
             <div className="w-full h-auto flex flex-col items-start gap-2">
               <h2 className="relative w-full text-center text-lg font-extrabold">
-                <span className="text-upBitLightBlue">{articleData.title}</span>
+                <span className="text-dunamuMain text-2xl">{articleData.title}</span>
                 {/* 페이지네이션 버튼 */}
                 <div className="w-full flex justify-between gap-4">
                   <div className="flex items-center gap-2">
@@ -228,7 +225,7 @@ export default function ArticleDetails({ params }: { params: { id: string } }, {
               <p>Source : {articleData.source}</p>
               <p>Wallet : {articleData.usewallet}</p>
               <p>Last Updated : {new Date().toLocaleDateString()}</p>
-              <button className="w-full px-4 py-2 bg-upBitLightBlue text-white rounded-xl" onClick={handleEdit}>
+              <button className="w-full px-4 py-2 bg-dunamuMain text-white rounded-xl font-bold" onClick={handleEdit}>
                 Edit
               </button>
             </div>

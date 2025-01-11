@@ -92,7 +92,9 @@ export function ArticleForm() {
             return (
               <FormItem key={field.name} className="flex gap-4 w-full h-auto items-center">
                 <div className="flex-1 p-0">
-                  <FormLabel>{field.label}</FormLabel>
+                  <FormLabel>
+                    <p className="font-bold mb-2">{field.label}</p>
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder={field.placeholder}
@@ -102,7 +104,9 @@ export function ArticleForm() {
                   </FormControl>
                 </div>
                 <div className="flex-1 p-0">
-                  <FormLabel>Private Key</FormLabel>
+                  <FormLabel>
+                    <p className="font-bold mb-2">Private Key</p>
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter your private key"
@@ -122,7 +126,9 @@ export function ArticleForm() {
                 name={field.name}
                 render={({ field: controllerField }) => (
                   <FormItem>
-                    <FormLabel>{field.label}</FormLabel>
+                    <FormLabel>
+                      <p className="font-bold mb-2">{field.label}</p>
+                    </FormLabel>
                     <FormControl>
                       {field.type === 'textarea' ? (
                         <Textarea
@@ -140,7 +146,7 @@ export function ArticleForm() {
             );
           }
         })}
-        <Button type="submit" className="rounded-xl bg-upBitLightBlue">
+        <Button type="submit" className="rounded-xl bg-dunamuMain">
           Submit
         </Button>
       </form>

@@ -42,7 +42,7 @@ export default function HomeHeader() {
                     <span> 서비스란?</span>
                   </div>
                 </div>
-                <kbd className="h-5 px-1.5 inline-flex items-center gap-1 text-2xs text-upBitLightBlue bg-white rounded border border-neutral-200 pointer-events-none select-none  max-lg:hidden">
+                <kbd className="h-5 px-1.5 inline-flex items-center gap-1 text-2xs text-upBitLightBlue bg-white rounded-xl border border-neutral-200 pointer-events-none select-none  max-lg:hidden">
                   <span className="text-xs">⌘</span>K
                 </kbd>
               </Button>
@@ -72,7 +72,7 @@ export default function HomeHeader() {
               <Button
                 variant="outline"
                 size="sm"
-                className="pl-4 pr-2 max-lg:pr-5 py-4 text-dunamuWhite space-x-4 bg-dunamuMain rounded dark:text-neutral-300">
+                className="pl-4 pr-2 max-lg:pr-5 py-4 text-dunamuWhite space-x-4 bg-dunamuMain rounded-xl dark:text-neutral-300">
                 <div className="flex items-center space-x-2">
                   <SearchIcon size={14} />
                   <div className="font-normal space-x-1">
