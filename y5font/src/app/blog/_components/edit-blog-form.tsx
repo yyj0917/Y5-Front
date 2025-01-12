@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { useState } from 'react';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 const FormSchema = z.object({
   title: z.string().min(2, { message: 'Title must be at least 2 characters.' }),
   textarea: z.string().min(2, { message: 'Description must be at least 2 characters.' }),
   walletAddress: z.string().min(2, { message: 'Wallet Address must be at least 2 characters.' }),
+  privateKey: z.string().min(2, { message: 'Private Key must be at least 2 characters.' }),
   source: z.string().min(2, { message: 'Source must be at least 2 characters.' }),
 });
 
@@ -23,10 +25,15 @@ export function EditBlogForm({
   onSubmit: (data: any) => void;
   handleCancel: () => void;
 }) {
-  const form = useForm({
-    resolver: zodResolver(FormSchema),
-    defaultValues: initialValues,
-  });
+    const [showPassword, setShowPassword] = useState(false); // 비밀번호 표시 상태
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+    const form = useForm({
+        resolver: zodResolver(FormSchema),
+        defaultValues: initialValues,
+    });
 
   return (
     <Form {...form}>
@@ -34,8 +41,6 @@ export function EditBlogForm({
         {[
           { name: 'title', label: 'Title', type: 'input', placeholder: 'Enter title' },
           { name: 'textarea', label: 'Description', type: 'textarea', placeholder: 'Enter description' },
-          { name: 'walletAddress', label: 'Wallet Address', type: 'input', placeholder: 'Enter wallet address' },
-          { name: 'source', label: 'Source', type: 'input', placeholder: 'Enter source' },
         ].map((field) => (
           <FormField
             key={field.name}
@@ -48,11 +53,11 @@ export function EditBlogForm({
                   {field.type === 'textarea' ? (
                     <Textarea
                       placeholder={field.placeholder}
-                      className="w-full h-[200px] rounded-xl"
+                      className="w-full h-[200px] rounded"
                       {...controllerField}
                     />
                   ) : (
-                    <Input placeholder={field.placeholder} className="rounded-xl" {...controllerField} />
+                    <Input placeholder={field.placeholder} className="rounded" {...controllerField} />
                   )}
                 </FormControl>
                 <FormMessage />
@@ -60,11 +65,71 @@ export function EditBlogForm({
             )}
           />
         ))}
-        <div className="w-full flex justify-betwee gap-2">
-          <Button type="submit" className="w-full rounded-xl bg-upBitLightBlue">
+
+        {/* Wallet Address and Private Key */}
+        <div className="flex gap-4 w-full">
+          <FormField
+            control={form.control}
+            name="walletAddress"
+            render={({ field: controllerField }) => (
+              <FormItem className="flex-1">
+                <FormLabel>Wallet Address</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter wallet address"
+                    className="rounded w-full"
+                    {...controllerField}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="privateKey"
+            render={({ field: controllerField }) => (
+              <FormItem className="flex-1">
+                <FormLabel>Private Key</FormLabel>
+                    <div className="relative">
+                        <FormControl>
+                        <Input
+                            placeholder="private key"
+                            type={showPassword ? 'text' : 'password'} // 비밀번호 숨김/표시
+                            className="rounded"
+                        />
+                        </FormControl>
+                        <button
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                        className="absolute inset-y-0 right-0 flex items-center pr-3 text-dunamuMain text-xl">
+                        {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+                        </button>
+                    </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <FormField
+          control={form.control}
+          name="source"
+          render={({ field: controllerField }) => (
+            <FormItem>
+              <FormLabel>Source</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter source" className="rounded" {...controllerField} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className="w-full flex justify-between gap-2">
+          <Button type="submit" className="w-full rounded bg-dunamuMain">
             Save
           </Button>
-          <Button variant={'primary'} onClick={handleCancel} className="w-full rounded-xl bg-upBitLightBlue">
+          <Button variant={'primary'} onClick={handleCancel} className="w-full rounded bg-dunamuMain">
             Cancel
           </Button>
         </div>

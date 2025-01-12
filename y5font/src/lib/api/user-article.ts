@@ -11,7 +11,6 @@ export async function fetchUserArticleList(account_address: string, type: string
         type: type,
       }, // Request Body에 포함
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     throw new Error('error');
@@ -26,7 +25,6 @@ export async function fetchUserBlogList(account_address: string, type: string) {
         type: type,
       }, // Request Body에 포함
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     throw new Error('error');

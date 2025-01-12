@@ -7,12 +7,13 @@ type BlogCardProps = {
   textarea: string;
   author: string;
   date: string;
+  time: string;
 };
 
-export default function BlogCard({ id, title, textarea, author, date }: BlogCardProps) {
+export default function BlogCard({ id, title, textarea, author, date, time }: BlogCardProps) {
   return (
     <Link href={`/blog/list/${id}`}>
-      <div className="hover-float p-4 flex flex-col gap-2 bg-white shadow-2xl rounded-xl overflow-hidden">
+      <div className="max-w-[100%] hover-float p-4 flex flex-col gap-2 bg-white shadow-2xl rounded-xl overflow-hidden">
         {/* title */}
         <h1 className="text-dunamuMain text-lg font-extrabold">{title}</h1>
 
@@ -22,11 +23,14 @@ export default function BlogCard({ id, title, textarea, author, date }: BlogCard
         </div>
         <p className="flex justify-between text-sm text-gray-500 mb-4">
           <span>Last Updated</span>
-          <span className="text-dunamuMain font-bold">{date}</span>
+          <span className="text-dunamuMain font-bold flex gap-2">
+            <span>{date}</span>
+            <span>{time}</span>
+          </span>
         </p>
         <footer className="flex justify-between items-center text-sm text-gray-600">
           {/* wallet address too long */}
-          <span className="text-dunamuMain line-clamp-1 font-bold">by {author}</span>
+          <span className="w-[70%] text-dunamuMain overflow-hidden whitespace-nowrap text-ellipsis font-bold">by {author}</span>
           <span className="text-white bg-dunamuMain rounded-full">
             <BadgeEuro />
           </span>

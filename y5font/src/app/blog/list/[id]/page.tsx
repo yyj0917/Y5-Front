@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { AlertEdit } from '@/components/alert-edit';
 import { EditBlogForm } from '../../_components/edit-blog-form';
 import TextDiffHighlighter from '@/components/text-diff';
+import { fetchBlogPostsDetail } from '@/lib/api/blog-post';
+import { fetchUserEditList } from '@/lib/api/user-article';
 
 const text1 = `
 “연휴 길어져도 쓸 돈이 없다”…27일 임시공휴일 지정 놓고 싸늘한 여론
@@ -90,55 +92,77 @@ type BlogVersion = {
   version: number;
   content: string;
 };
-export default function BlogDetails({ params }: { params: { id: string } }, { article }: { article: any }) {
-  const { id } = params;
-  // 수정 모드 상태
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [isAlertVisible, setAlertVisible] = useState(false); // Alert 상태 추가
-  const [version, setVersion] = useState<BlogVersion[]>([]);
-  const [currentPage, setCurrentPage] = useState(0); // 현재 페이지 번호
+export default function BlogDetails({ params }: { params: { id: number } }, { article }: { article: any }) {
+    const { id } = params;
 
-  const [blogData, setBlogData] = useState({
-    title: 'Sample Title',
-    textarea:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-    walletAddress: '0xSampleWallet',
-    source: 'Sample Source',
-  });
-  useEffect(() => {
-    setVersion([
-      { version: 1, content: text1 },
-      { version: 2, content: text2 },
-      { version: 3, content: text3 },
-      { version: 4, content: text4 },
-    ]);
-  }, []);
-  // 현재 페이지에서 비교할 데이터
-  const currentVersion = version[currentPage - 1];
-  const nextVersion = version[currentPage];
+    // 수정 모드 상태
+    const [isEditMode, setIsEditMode] = useState(false);
+    const [isAlertVisible, setAlertVisible] = useState(false); // Alert 상태 추가
+    const [version, setVersion] = useState<BlogVersion[]>([]);
+    const [currentPage, setCurrentPage] = useState(0); // 현재 페이지 번호
 
-  // 이전 페이지로 이동
-  const handlePrev = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
+    const [blogDetails, setBlogDetails] = useState<any>(null);
+    useEffect(() => {
+        // 데이터 가져오기
+        const fetchBlogDetails = async () => {
+          try {
+            const blogDetailsData = await fetchBlogPostsDetail(id); // 최신 버전 데이터
+            setBlogDetails(blogDetailsData);
+    
+            const oldVersions = blogDetailsData.old_version; // old_version 배열
+    
+            // 모든 트랜잭션 해시를 매핑하여 과거 버전 데이터 가져오기
+            const oldVersionData = await Promise.all(
+              oldVersions.map((hash: string) => fetchUserEditList(hash))
+            );
+    
+            // 버전 데이터 구성
+            const allVersions = [
+              ...oldVersionData.map((data, index) => ({
+                version: index,
+                content: data.content,
+              })),
+              {
+                version: oldVersionData.length + 1,
+                content: blogDetailsData.content, // 가장 최신 버전
+              },
+            ];
+    
+            // 상태 업데이트
+            setVersion(allVersions);
+          } catch (error) {
+            console.error('Error fetching blog details or old versions:', error);
+          }
+        };
+    
+        fetchBlogDetails();
+      }, [id]);
+    // 현재 페이지에서 비교할 데이터
+    const currentVersion = version[currentPage - 1];
+    const nextVersion = version[currentPage];
 
-  // 다음 페이지로 이동
-  const handleNext = () => {
-    if (currentPage < version.length - 1) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-  // 수정 버튼 클릭 핸들러
-  const handleEdit = () => {
-    setIsEditMode(true);
-  };
-  const handleCancel = () => {
-    setIsEditMode(false);
-  };
-  const handleSubmit = async (data: any) => {
-    // 수정 모드 종료
+    // 이전 페이지로 이동
+    const handlePrev = () => {
+        if (currentPage > 0) {
+        setCurrentPage(currentPage - 1);
+        }
+    };
+
+    // 다음 페이지로 이동
+    const handleNext = () => {
+        if (currentPage < version.length - 1) {
+        setCurrentPage(currentPage + 1);
+        }
+    };
+    // 수정 버튼 클릭 핸들러
+    const handleEdit = () => {
+        setIsEditMode(true);
+    };
+    const handleCancel = () => {
+        setIsEditMode(false);
+    };
+    const handleSubmit = async (data: any) => {
+        // 수정 모드 종료
     setIsEditMode(false);
 
     // Alert 활성화
@@ -148,14 +172,6 @@ export default function BlogDetails({ params }: { params: { id: string } }, { ar
     setTimeout(() => {
       setAlertVisible(false); // Alert 숨김
     }, 1500); // 3초 동안 Alert 표시
-    // (updatedData) => {
-    //     console.log('Updated data:', updatedData);
-    //     setArticleData(updatedData);
-    //     setIsEditMode(false); // 수정 완료 후 모드 종료
-    // }
-    // try {
-    //     await
-    // }
   };
 
   return (
@@ -163,11 +179,11 @@ export default function BlogDetails({ params }: { params: { id: string } }, { ar
       <div className="mt-10 w-full flex flex-col gap-10 justify-center items-center">
         <section className="p-4 w-[80%] h- flex flex-col justify-center items-center shadow-2xl rounded-xl">
           {isEditMode ? (
-            <EditBlogForm initialValues={blogData} onSubmit={handleSubmit} handleCancel={handleCancel} />
+            <EditBlogForm initialValues={blogDetails} onSubmit={handleSubmit} handleCancel={handleCancel} />
           ) : (
             <div className="w-full h-auto flex flex-col items-start gap-2">
               <h2 className="relative w-full text-center text-lg font-extrabold">
-                <span className="text-dunamuMain text-2xl">{blogData.title}</span>
+                <span className="text-dunamuMain text-2xl">{blogDetails?.title}</span>
                 {/* 페이지네이션 버튼 */}
                 <div className="w-full flex justify-between gap-4">
                   <div className="flex items-center gap-2">
@@ -214,9 +230,10 @@ export default function BlogDetails({ params }: { params: { id: string } }, { ar
                   <p>Loading versions...</p>
                 )}
               </div>
-              <p>Source : {blogData.source}</p>
-              <p>Wallet : {blogData.walletAddress}</p>
-              <p>Last Updated : {new Date().toLocaleDateString()}</p>
+              <p>Reference : {blogDetails?.reference[0]}</p>
+              <p className='w-[60%] overflow-hidden truncate'>Author : {blogDetails?.accountAddress}</p>
+              <span>Last Updated : {blogDetails?.updatedAt}
+              </span>
               <button className="w-full px-4 py-2 bg-dunamuMain text-white rounded-xl" onClick={handleEdit}>
                 Edit
               </button>

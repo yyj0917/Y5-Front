@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { EditArticleForm } from '../../_components/edit-article-form';
 import { AlertEdit } from '@/components/alert-edit';
 import TextDiffHighlighter from '@/components/text-diff';
+import { fetchArticleNewsDetail } from '@/lib/api/article-news';
+import { fetchUserEditList } from '@/lib/api/user-article';
 
 type Article = {
   title: string;
@@ -105,21 +107,42 @@ export default function ArticleDetails({ params }: { params: { id: string } }, {
   const [version, setVersion] = useState<ArticleVersion[]>([]);
   const [currentPage, setCurrentPage] = useState(0); // 현재 페이지 번호
 
-  const [articleData, setArticleData] = useState({
-    title: 'Sample Title',
-    usewallet: '0xSampleWallet',
-    textarea:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-    source: 'Sample Source',
-  });
-  useEffect(() => {
-    setVersion([
-      { version: 1, content: text1 },
-      { version: 2, content: text2 },
-      { version: 3, content: text3 },
-      { version: 4, content: text4 },
-    ]);
-  }, []);
+  const [articleDetails, setArticleDetails] = useState<any>(null);
+    useEffect(() => {
+        // 데이터 가져오기
+        const fetchBlogDetails = async () => {
+          try {
+            const articleDetailsData = await fetchArticleNewsDetail(id); // 최신 버전 데이터
+            setArticleDetails(articleDetailsData);
+    
+            const oldVersions = articleDetailsData.old_version; // old_version 배열
+    
+            // 모든 트랜잭션 해시를 매핑하여 과거 버전 데이터 가져오기
+            const oldVersionData = await Promise.all(
+              oldVersions.map((hash: string) => fetchUserEditList(hash))
+            );
+    
+            // 버전 데이터 구성
+            const allVersions = [
+              ...oldVersionData.map((data, index) => ({
+                version: index,
+                content: data.content,
+              })),
+              {
+                version: oldVersionData.length + 1,
+                content: articleDetailsData.content, // 가장 최신 버전
+              },
+            ];
+    
+            // 상태 업데이트
+            setVersion(allVersions);
+          } catch (error) {
+            console.error('Error fetching blog details or old versions:', error);
+          }
+        };
+    
+        fetchBlogDetails();
+      }, [id]);
   // 현재 페이지에서 비교할 데이터
   const currentVersion = version[currentPage - 1];
   const nextVersion = version[currentPage];
@@ -171,11 +194,11 @@ export default function ArticleDetails({ params }: { params: { id: string } }, {
       <div className="mt-10 w-full flex flex-col gap-10 justify-center items-center">
         <section className="p-4 w-[80%] h- flex flex-col justify-center items-center shadow-2xl rounded-xl">
           {isEditMode ? (
-            <EditArticleForm initialValues={articleData} onSubmit={handleSubmit} handleCancel={handleCancel} />
+            <EditArticleForm initialValues={articleDetails} onSubmit={handleSubmit} handleCancel={handleCancel} />
           ) : (
             <div className="w-full h-auto flex flex-col items-start gap-2">
               <h2 className="relative w-full text-center text-lg font-extrabold">
-                <span className="text-dunamuMain text-2xl">{articleData.title}</span>
+                <span className="text-dunamuMain text-2xl">{articleDetails?.title}</span>
                 {/* 페이지네이션 버튼 */}
                 <div className="w-full flex justify-between gap-4">
                   <div className="flex items-center gap-2">
@@ -222,9 +245,9 @@ export default function ArticleDetails({ params }: { params: { id: string } }, {
                   <p>Loading versions...</p>
                 )}
               </div>
-              <p>Source : {articleData.source}</p>
-              <p>Wallet : {articleData.usewallet}</p>
-              <p>Last Updated : {new Date().toLocaleDateString()}</p>
+              <p>Source : {articleDetails?.source}</p>
+              <p className='w-[60%] overflow-hidden truncate'>Wallet : {articleDetails?.accountAddress}</p>
+              <p>Last Updated : {articleDetails?.updatedAt}</p>
               <button className="w-full px-4 py-2 bg-dunamuMain text-white rounded-xl font-bold" onClick={handleEdit}>
                 Edit
               </button>

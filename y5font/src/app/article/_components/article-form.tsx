@@ -10,6 +10,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { PostArticleNews } from '@/lib/api/article-news';
+import { useState } from 'react';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 const FormSchema = z.object({
   title: z.string().min(2, {
@@ -30,16 +32,21 @@ const FormSchema = z.object({
 });
 
 export function ArticleForm() {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      title: '',
-      userwallet: '',
-      privateKey: '',
-      textarea: '',
-      source: '',
-    },
-  });
+    const [showPassword, setShowPassword] = useState(false); // 비밀번호 표시 상태
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+    const form = useForm<z.infer<typeof FormSchema>>({
+        resolver: zodResolver(FormSchema),
+        defaultValues: {
+        title: '',
+        userwallet: '',
+        privateKey: '',
+        textarea: '',
+        source: '',
+        },
+    });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
@@ -48,6 +55,8 @@ export function ArticleForm() {
         source: data.source.split(',').map((item) => item.trim()), // ','로 분리 및 공백 제거
       };
       await PostArticleNews(formattedData);
+      alert('Success');
+      window.location.href = '/article/list';
     } catch (err) {
       console.log(err);
     }
@@ -90,16 +99,18 @@ export function ArticleForm() {
           if (field.name === 'userwallet') {
             // 분리된 User Wallet과 Private Key
             return (
-              <FormItem key={field.name} className="flex gap-4 w-full h-auto items-center">
+              <FormItem key={`form-item-${field.name}`} className="flex gap-4 w-full h-auto items-center">
                 <div className="flex-1 p-0">
                   <FormLabel>
                     <p className="font-bold mb-2">{field.label}</p>
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={field.placeholder}
-                      className="rounded-xl w-full"
-                      {...form.register('userwallet')}
+                        id={`walletAddress-${field.name}`}
+
+                        placeholder={field.placeholder}
+                        className="rounded w-full"
+                        {...form.register('userwallet')}
                     />
                   </FormControl>
                 </div>
@@ -107,13 +118,23 @@ export function ArticleForm() {
                   <FormLabel>
                     <p className="font-bold mb-2">Private Key</p>
                   </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Enter your private key"
-                      className="rounded-xl w-full"
-                      {...form.register('privateKey')}
-                    />
-                  </FormControl>
+                  <div className="relative">
+                    <FormControl>
+                      <Input
+                        id={`privateKey-${field.name}`}
+                        placeholder="private key"
+                        type={showPassword ? 'text' : 'password'} // 비밀번호 숨김/표시
+                        className="mt-2 rounded"
+                        {...form.register('privateKey')}
+                      />
+                    </FormControl>
+                    <button
+                      type="button"
+                      onClick={togglePasswordVisibility}
+                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-dunamuMain text-xl">
+                      {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+                    </button>
+                  </div>
                 </div>
               </FormItem>
             );
@@ -133,11 +154,11 @@ export function ArticleForm() {
                       {field.type === 'textarea' ? (
                         <Textarea
                           placeholder={field.placeholder}
-                          className="w-full h-[200px] rounded-xl"
+                          className="w-full h-[200px] rounded"
                           {...controllerField}
                         />
                       ) : (
-                        <Input placeholder={field.placeholder} className="rounded-xl" {...controllerField} />
+                        <Input placeholder={field.placeholder} className="rounded" {...controllerField} />
                       )}
                     </FormControl>
                   </FormItem>
@@ -146,7 +167,7 @@ export function ArticleForm() {
             );
           }
         })}
-        <Button type="submit" className="rounded-xl bg-dunamuMain">
+        <Button type="submit" className="rounded bg-dunamuMain">
           Submit
         </Button>
       </form>
