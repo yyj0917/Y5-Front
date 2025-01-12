@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = "/api";
+const baseURL = '/api';
 
 // 지갑 주소로 작성한 글 조회 api - article
 export async function fetchUserArticleList(account_address: string, type: string) {
