@@ -1,0 +1,9 @@
+{
+    "rewrites": [
+      {
+        "source": "/custom/:path*", 
+        "destination": "http://44.211.172.227:8000/:path*" 
+      }
+    ]
+  }
+  
