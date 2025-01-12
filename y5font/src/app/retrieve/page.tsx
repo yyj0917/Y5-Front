@@ -17,43 +17,43 @@ const fetchArticles = async (walletAddress: string) => {
 };
 
 export default function RetrievePage() {
-    const formatDateTime = (isoString: string) => {
-        const [date, time] = isoString.split("T");
-        const formattedTime = time.split(".")[0];
-        return { date, formattedTime };
-      };
-    const [currentPage, setCurrentPage] = useState<'form' | 'result'>('form');
-    const [articles, setArticles] = useState<{ id: number; content: string }[]>([]);
-    const [blog, setBlog] = useState<{ id: number; content: string }[]>([]);
+  const formatDateTime = (isoString: string) => {
+    const [date, time] = isoString.split('T');
+    const formattedTime = time.split('.')[0];
+    return { date, formattedTime };
+  };
+  const [currentPage, setCurrentPage] = useState<'form' | 'result'>('form');
+  const [articles, setArticles] = useState<{ id: number; content: string }[]>([]);
+  const [blog, setBlog] = useState<{ id: number; content: string }[]>([]);
 
-    // const [walletAddress, setWalletAddress] = useState("");
-    const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
+  // const [walletAddress, setWalletAddress] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
 
-    const handleSubmit = async (wallAddress: string) => {
-        setIsLoading(true); // 로딩 시작
-        // setWalletAddress(wallAddress); // 지갑 주소 저장
+  const handleSubmit = async (wallAddress: string) => {
+    setIsLoading(true); // 로딩 시작
+    // setWalletAddress(wallAddress); // 지갑 주소 저장
 
-        try {
-        const fetchedArticles = await fetchUserArticleList(wallAddress, 'news'); // 함수 호출
-        const fetchedBlog = await fetchUserBlogList(wallAddress, 'blog'); // 함수 호출
+    try {
+      const fetchedArticles = await fetchUserArticleList(wallAddress, 'news'); // 함수 호출
+      const fetchedBlog = await fetchUserBlogList(wallAddress, 'blog'); // 함수 호출
 
-        setArticles(fetchedArticles); // 상태에 글 목록 저장
-        setBlog(fetchedBlog); // 상태에 블로그 목록 저장
-        setCurrentPage('result'); // 결과 페이지로 전환
-        } catch (error) {
-        console.error(error); // 에러 발생 시 콘솔에 표시
-        } finally {
-        setTimeout(() => setIsLoading(false), 1000); // 로딩 종료 (1초 후)
-        }
-    };
-    useEffect(() => {
-        setTimeout(() => setIsLoading(false), 3000); // 로딩 종료 (1초 후)
-    }, [isLoading]);
+      setArticles(fetchedArticles); // 상태에 글 목록 저장
+      setBlog(fetchedBlog); // 상태에 블로그 목록 저장
+      setCurrentPage('result'); // 결과 페이지로 전환
+    } catch (error) {
+      console.error(error); // 에러 발생 시 콘솔에 표시
+    } finally {
+      setTimeout(() => setIsLoading(false), 1000); // 로딩 종료 (1초 후)
+    }
+  };
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 3000); // 로딩 종료 (1초 후)
+  }, [isLoading]);
 
-    const handleBack = () => {
-        setCurrentPage('form'); // 폼 화면으로 돌아가기
-        setArticles([]); // 글 목록 초기화
-    };
+  const handleBack = () => {
+    setCurrentPage('form'); // 폼 화면으로 돌아가기
+    setArticles([]); // 글 목록 초기화
+  };
 
   return (
     <div className="mt-10 w-full h-[70vh] flex flex-col justify-center items-center">

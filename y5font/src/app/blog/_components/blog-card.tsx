@@ -30,7 +30,9 @@ export default function BlogCard({ id, title, textarea, author, date, time }: Bl
         </p>
         <footer className="flex justify-between items-center text-sm text-gray-600">
           {/* wallet address too long */}
-          <span className="w-[70%] text-dunamuMain overflow-hidden whitespace-nowrap text-ellipsis font-bold">by {author}</span>
+          <span className="w-[70%] text-dunamuMain overflow-hidden whitespace-nowrap text-ellipsis font-bold">
+            by {author}
+          </span>
           <span className="text-white bg-dunamuMain rounded-full">
             <BadgeEuro />
           </span>

@@ -34,12 +34,12 @@ export async function fetchBlogPosts() {
   }
 }
 // blog 글 상세조회 api
-export async function fetchBlogPostsDetail(id: number) {
+export async function fetchBlogPostsDetail(id: string) {
   try {
     const response = await axios.get(`${baseURL}/article/detail/${id}`, {
-        params: {
-            type: 'blog',
-        },
+      params: {
+        type: 'blog',
+      },
     });
     return response.data;
   } catch (error) {

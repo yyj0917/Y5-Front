@@ -6,7 +6,8 @@ import { EditArticleForm } from '../../_components/edit-article-form';
 import { AlertEdit } from '@/components/alert-edit';
 import TextDiffHighlighter from '@/components/text-diff';
 import { fetchArticleNewsDetail } from '@/lib/api/article-news';
-import { fetchUserEditList } from '@/lib/api/user-article';
+import { fetchUserEditList, updateArticle } from '@/lib/api/user-article';
+import { set } from 'react-hook-form';
 
 type Article = {
   title: string;
@@ -108,41 +109,39 @@ export default function ArticleDetails({ params }: { params: { id: string } }, {
   const [currentPage, setCurrentPage] = useState(0); // 현재 페이지 번호
 
   const [articleDetails, setArticleDetails] = useState<any>(null);
-    useEffect(() => {
-        // 데이터 가져오기
-        const fetchBlogDetails = async () => {
-          try {
-            const articleDetailsData = await fetchArticleNewsDetail(id); // 최신 버전 데이터
-            setArticleDetails(articleDetailsData);
-    
-            const oldVersions = articleDetailsData.old_version; // old_version 배열
-    
-            // 모든 트랜잭션 해시를 매핑하여 과거 버전 데이터 가져오기
-            const oldVersionData = await Promise.all(
-              oldVersions.map((hash: string) => fetchUserEditList(hash))
-            );
-    
-            // 버전 데이터 구성
-            const allVersions = [
-              ...oldVersionData.map((data, index) => ({
-                version: index,
-                content: data.content,
-              })),
-              {
-                version: oldVersionData.length + 1,
-                content: articleDetailsData.content, // 가장 최신 버전
-              },
-            ];
-    
-            // 상태 업데이트
-            setVersion(allVersions);
-          } catch (error) {
-            console.error('Error fetching blog details or old versions:', error);
-          }
-        };
-    
-        fetchBlogDetails();
-      }, [id]);
+  useEffect(() => {
+    // 데이터 가져오기
+    const fetchBlogDetails = async () => {
+      try {
+        const articleDetailsData = await fetchArticleNewsDetail(id); // 최신 버전 데이터
+        setArticleDetails(articleDetailsData);
+
+        const oldVersions = articleDetailsData.old_version; // old_version 배열
+
+        // 모든 트랜잭션 해시를 매핑하여 과거 버전 데이터 가져오기
+        const oldVersionData = await Promise.all(oldVersions.map((hash: string) => fetchUserEditList(hash)));
+
+        // 버전 데이터 구성
+        const allVersions = [
+          ...oldVersionData.map((data, index) => ({
+            version: index,
+            content: data.content,
+          })),
+          {
+            version: oldVersionData.length + 1,
+            content: articleDetailsData.content, // 가장 최신 버전
+          },
+        ];
+
+        // 상태 업데이트
+        setVersion(allVersions);
+      } catch (error) {
+        console.error('Error fetching blog details or old versions:', error);
+      }
+    };
+
+    fetchBlogDetails();
+  }, [id, setArticleDetails]);
   // 현재 페이지에서 비교할 데이터
   const currentVersion = version[currentPage - 1];
   const nextVersion = version[currentPage];
@@ -170,6 +169,21 @@ export default function ArticleDetails({ params }: { params: { id: string } }, {
   };
   const handleSubmit = async (data: any) => {
     // 수정 모드 종료
+
+    // Alert 활성화
+    try {
+      const dataWithId = {
+        ...data, // 기존 data의 모든 필드를 복사
+        id: id, // 여기에 id를 추가 (articleId는 전달받거나 정의된 id 값)
+        type: 'news',
+      };
+      const res = await updateArticle(dataWithId);
+      alert('수정되었습니다.');
+      setArticleDetails(res);
+      window.location.href = '/article/list';
+    } catch (error) {
+      alert('수정에 실패하였습니다.');
+    }
     setIsEditMode(false);
 
     // Alert 활성화
@@ -179,14 +193,6 @@ export default function ArticleDetails({ params }: { params: { id: string } }, {
     setTimeout(() => {
       setAlertVisible(false); // Alert 숨김
     }, 1500); // 3초 동안 Alert 표시
-    // (updatedData) => {
-    //     console.log('Updated data:', updatedData);
-    //     setArticleData(updatedData);
-    //     setIsEditMode(false); // 수정 완료 후 모드 종료
-    // }
-    // try {
-    //     await
-    // }
   };
 
   return (
@@ -245,8 +251,8 @@ export default function ArticleDetails({ params }: { params: { id: string } }, {
                   <p>Loading versions...</p>
                 )}
               </div>
-              <p>Source : {articleDetails?.source}</p>
-              <p className='w-[60%] overflow-hidden truncate'>Wallet : {articleDetails?.accountAddress}</p>
+              <p>Reference : {articleDetails?.reference}</p>
+              <p className="w-[60%] overflow-hidden truncate">Author : {articleDetails?.accountAddress}</p>
               <p>Last Updated : {articleDetails?.updatedAt}</p>
               <button className="w-full px-4 py-2 bg-dunamuMain text-white rounded-xl font-bold" onClick={handleEdit}>
                 Edit

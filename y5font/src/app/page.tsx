@@ -42,7 +42,7 @@ export default function Home() {
                   <h3 className="pl-0.5 pt-6 flex flex-col text-xs text-neutral-800 dark:text-neutral-300/70 font-normal md:font-normal leading-[1.65]">
                     <span>가짜 뉴스와 거짓 정보가 넘치는 시대,</span>
                     <span>블록체인을 활용해 글과 출처를 영구히 보존합니다.</span>
-                    <span>임의 수정, 삭제 없이 신뢰할 만한 기록을 남겨보세요.</span>
+                    <span>임의 수정, 삭제할 수 없는 신뢰할 만한 기록을 남겨보세요.</span>
                   </h3>
                   <div className="flex flex-col">
                     <AboutCredit>

@@ -3,12 +3,12 @@ import './../../globals.css';
 import { BadgeEuro } from 'lucide-react';
 
 type ArticleCardProps = {
-    id: number;
-    title: string;
-    textarea: string;
-    author: string;
-    date: string;
-    time: string;
+  id: number;
+  title: string;
+  textarea: string;
+  author: string;
+  date: string;
+  time: string;
 };
 
 export default function ArticleCard({ id, title, textarea, author, date, time }: ArticleCardProps) {
@@ -31,7 +31,9 @@ export default function ArticleCard({ id, title, textarea, author, date, time }:
         </p>
         <footer className="flex justify-between items-center text-sm text-gray-600">
           {/* wallet address too long */}
-          <span className="w-[70%] text-dunamuMain overflow-hidden whitespace-nowrap text-ellipsis font-bold">by {author}</span>
+          <span className="w-[70%] text-dunamuMain overflow-hidden whitespace-nowrap text-ellipsis font-bold">
+            by {author}
+          </span>
           <span className="text-white bg-dunamuMain rounded-full">
             <BadgeEuro />
           </span>

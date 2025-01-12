@@ -65,10 +65,11 @@ export function AboutCredit({ children, useShortcut = false }: AboutSlyceProps) 
               CredIT은 <span className="text-upBitBlus font-bold">블록체인</span>을 활용해 글 자체와 그 출처 (인용 근거)
               를 <span className="text-upBitBlus font-bold">불변</span>형태로 기록합니다.
               <br />
-              누가 언제 어떤 내용, 출처를 작성했는지 <span className="text-upBitBlus font-bold">
-                임의 수정
-              </span>이나 <span className="text-upBitBlus font-bold">로그 삭제</span>없이 영구 보존하는 플랫폼, CredIT을
-              통해 글과 글의 출처를 분변형태로 기록하여 판별하세요.
+              작성자, 작성일, 글의 내용과 참고 자료 출처 데이터를
+              <span className="text-upBitBlus font-bold">임의 수정</span>이나{' '}
+              <span className="text-upBitBlus font-bold">로그 삭제</span>없이 영구 보존하여 위변조 없는 투명한 글을
+              제공합니다. <span className="text-upBitBlus font-bold">CredIT</span>에서 신뢰할 만한 글을 쓰고,
+              읽어보세요.
             </DialogDescription>
           </DialogHeader>
           <ul className="mt-5 h-70 grid grid-cols-3 gap-4">
@@ -81,8 +82,7 @@ export function AboutCredit({ children, useShortcut = false }: AboutSlyceProps) 
             <li className="group relative col-span-1 py-5 px-4 space-y-2 bg-neutral-50 dark:bg-neutral-900 border dark:border-neutral-700 rounded-md shadow-[0_3px_2px_0_rgba(0,0,0,0.08)] overflow-hidden">
               <h1 className="text-sm text-neutral-900 dark:text-neutral-50 font-bold">임의 수정 방지</h1>
               <h2 className="text-xsb text-neutral-600 dark:text-neutral-400 font-normal">
-                블록체인에 기록된 내용은 임의로 삭제, 변경하기가 어렵기 때문에 가짜뉴스, 거짓정보 조작을 막을 수
-                있습니다.
+                블록체인에 기록된 내용은 임의로 삭제, 변경하기가 어렵기 때문에 정보 조작과 가짜 뉴스를 예방 수 있습니다.
               </h2>
               {/* <FigureB className="absolute top-25 left-17 z-10" /> */}
             </li>
@@ -116,10 +116,11 @@ export function AboutCredit({ children, useShortcut = false }: AboutSlyceProps) 
               CredIT은 <span className="text-upBitBlus font-bold">블록체인</span>을 활용해 글 자체와 그 출처 (인용 근거)
               를 <span className="text-upBitBlus font-bold">불변</span>형태로 기록합니다.
               <br />
-              누가 언제 어떤 내용, 출처를 작성했는지 <span className="text-upBitBlus font-bold">
-                임의 수정
-              </span>이나 <span className="text-upBitBlus font-bold">로그 삭제</span>없이 영구 보존하는 플랫폼, CredIT을
-              통해 글과 글의 출처를 분변형태로 기록하여 판별하세요.
+              작성자, 작성일, 글의 내용과 참고 자료 출처 데이터를
+              <span className="text-upBitBlus font-bold">임의 수정</span>이나{' '}
+              <span className="text-upBitBlus font-bold">로그 삭제</span>없이 영구 보존하여 위변조 없는 투명한 글을
+              제공합니다. <span className="text-upBitBlus font-bold">CredIT</span>에서 신뢰할 만한 글을 쓰고,
+              읽어보세요.
             </DrawerDescription>
           </DrawerHeader>
           <ul className="mt-3 px-4 pb-12 flex flex-col gap-5">
@@ -140,8 +141,7 @@ export function AboutCredit({ children, useShortcut = false }: AboutSlyceProps) 
               </div>
               <h1 className="text-lgb text-neutral-900 dark:text-neutral-50 font-bold">임의 수정 방지</h1>
               <h2 className="text-xs text-neutral-600 dark:text-neutral-400 font-bold">
-                블록체인에 기록된 내용은 임의로 삭제, 변경하기가 어렵기 때문에 가짜뉴스, 거짓정보 조작을 막을 수
-                있습니다.
+                블록체인에 기록된 내용은 임의로 삭제, 변경하기가 어렵기 때문에 정보 조작과 가짜 뉴스를 예방 수 있습니다.
               </h2>
               {/* <FigureB className="absolute top-[45%] right-0 z-10 scale-[1.2]" /> */}
             </li>

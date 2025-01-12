@@ -25,8 +25,7 @@ export function RetrieveForm({ handleSubmit }: RetrieveFormProps) {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
-        handleSubmit(data.walletAddress);
-        
+      handleSubmit(data.walletAddress);
     } catch (error) {
       // 에러 처리
       const statusCode = parseInt((error as Error).message, 10);
@@ -67,7 +66,7 @@ export function RetrieveForm({ handleSubmit }: RetrieveFormProps) {
                 </FormLabel>
                 <FormDescription>
                   <span className="text-black font-semibold">
-                    Check the list of posts written through your wallet address.
+                    Check the list of posts written through wallet address.
                   </span>
                 </FormDescription>
                 <FormControl>

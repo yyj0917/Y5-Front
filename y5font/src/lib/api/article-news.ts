@@ -38,9 +38,9 @@ export async function fetchArticleNews() {
 export async function fetchArticleNewsDetail(id: string) {
   try {
     const response = await axios.get(`${baseURL}/article/detail/${id}`, {
-        params: {
-            type: 'news',
-        },
+      params: {
+        type: 'news',
+      },
     });
     return response.data;
   } catch (error) {

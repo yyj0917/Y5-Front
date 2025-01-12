@@ -6,7 +6,8 @@ import { AlertEdit } from '@/components/alert-edit';
 import { EditBlogForm } from '../../_components/edit-blog-form';
 import TextDiffHighlighter from '@/components/text-diff';
 import { fetchBlogPostsDetail } from '@/lib/api/blog-post';
-import { fetchUserEditList } from '@/lib/api/user-article';
+import { fetchUserEditList, updateArticle } from '@/lib/api/user-article';
+import { set } from 'react-hook-form';
 
 const text1 = `
 “연휴 길어져도 쓸 돈이 없다”…27일 임시공휴일 지정 놓고 싸늘한 여론
@@ -92,80 +93,91 @@ type BlogVersion = {
   version: number;
   content: string;
 };
-export default function BlogDetails({ params }: { params: { id: number } }, { article }: { article: any }) {
-    const { id } = params;
+export default function BlogDetails({ params }: { params: { id: string } }, { article }: { article: any }) {
+  const { id } = params;
 
-    // 수정 모드 상태
-    const [isEditMode, setIsEditMode] = useState(false);
-    const [isAlertVisible, setAlertVisible] = useState(false); // Alert 상태 추가
-    const [version, setVersion] = useState<BlogVersion[]>([]);
-    const [currentPage, setCurrentPage] = useState(0); // 현재 페이지 번호
+  // 수정 모드 상태
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [isAlertVisible, setAlertVisible] = useState(false); // Alert 상태 추가
+  const [version, setVersion] = useState<BlogVersion[]>([]);
+  const [currentPage, setCurrentPage] = useState(0); // 현재 페이지 번호
 
-    const [blogDetails, setBlogDetails] = useState<any>(null);
-    useEffect(() => {
-        // 데이터 가져오기
-        const fetchBlogDetails = async () => {
-          try {
-            const blogDetailsData = await fetchBlogPostsDetail(id); // 최신 버전 데이터
-            setBlogDetails(blogDetailsData);
-    
-            const oldVersions = blogDetailsData.old_version; // old_version 배열
-    
-            // 모든 트랜잭션 해시를 매핑하여 과거 버전 데이터 가져오기
-            const oldVersionData = await Promise.all(
-              oldVersions.map((hash: string) => fetchUserEditList(hash))
-            );
-    
-            // 버전 데이터 구성
-            const allVersions = [
-              ...oldVersionData.map((data, index) => ({
-                version: index,
-                content: data.content,
-              })),
-              {
-                version: oldVersionData.length + 1,
-                content: blogDetailsData.content, // 가장 최신 버전
-              },
-            ];
-    
-            // 상태 업데이트
-            setVersion(allVersions);
-          } catch (error) {
-            console.error('Error fetching blog details or old versions:', error);
-          }
-        };
-    
-        fetchBlogDetails();
-      }, [id]);
-    // 현재 페이지에서 비교할 데이터
-    const currentVersion = version[currentPage - 1];
-    const nextVersion = version[currentPage];
+  const [blogDetails, setBlogDetails] = useState<any>(null);
+  useEffect(() => {
+    // 데이터 가져오기
+    const fetchBlogDetails = async () => {
+      try {
+        const blogDetailsData = await fetchBlogPostsDetail(id); // 최신 버전 데이터
+        setBlogDetails(blogDetailsData);
 
-    // 이전 페이지로 이동
-    const handlePrev = () => {
-        if (currentPage > 0) {
-        setCurrentPage(currentPage - 1);
-        }
+        const oldVersions = blogDetailsData.old_version; // old_version 배열
+
+        // 모든 트랜잭션 해시를 매핑하여 과거 버전 데이터 가져오기
+        const oldVersionData = await Promise.all(oldVersions.map((hash: string) => fetchUserEditList(hash)));
+
+        // 버전 데이터 구성
+        const allVersions = [
+          ...oldVersionData.map((data, index) => ({
+            version: index,
+            content: data.content,
+          })),
+          {
+            version: oldVersionData.length + 1,
+            content: blogDetailsData.content, // 가장 최신 버전
+          },
+        ];
+
+        // 상태 업데이트
+        setVersion(allVersions);
+      } catch (error) {
+        console.error('Error fetching blog details or old versions:', error);
+      }
     };
 
-    // 다음 페이지로 이동
-    const handleNext = () => {
-        if (currentPage < version.length - 1) {
-        setCurrentPage(currentPage + 1);
-        }
-    };
-    // 수정 버튼 클릭 핸들러
-    const handleEdit = () => {
-        setIsEditMode(true);
-    };
-    const handleCancel = () => {
-        setIsEditMode(false);
-    };
-    const handleSubmit = async (data: any) => {
-        // 수정 모드 종료
+    fetchBlogDetails();
+  }, [id]);
+  // 현재 페이지에서 비교할 데이터
+  const currentVersion = version[currentPage - 1];
+  const nextVersion = version[currentPage];
+
+  // 이전 페이지로 이동
+  const handlePrev = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  // 다음 페이지로 이동
+  const handleNext = () => {
+    if (currentPage < version.length - 1) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+  // 수정 버튼 클릭 핸들러
+  const handleEdit = () => {
+    setIsEditMode(true);
+  };
+  const handleCancel = () => {
     setIsEditMode(false);
+  };
+  const handleSubmit = async (data: any) => {
+    // 수정 모드 종료
 
     // Alert 활성화
+    try {
+      const dataWithId = {
+        ...data, // 기존 data의 모든 필드를 복사
+        id: id, // 여기에 id를 추가 (articleId는 전달받거나 정의된 id 값)
+        type: 'blog',
+      };
+      const res = await updateArticle(dataWithId);
+      alert('수정되었습니다.');
+      setBlogDetails(res);
+      window.location.href = '/blog/list';
+    } catch (error) {
+      alert('수정에 실패하였습니다.');
+    }
+    setIsEditMode(false);
     setAlertVisible(true);
 
     // Alert을 일정 시간 후 닫기
@@ -230,10 +242,9 @@ export default function BlogDetails({ params }: { params: { id: number } }, { ar
                   <p>Loading versions...</p>
                 )}
               </div>
-              <p>Reference : {blogDetails?.reference[0]}</p>
-              <p className='w-[60%] overflow-hidden truncate'>Author : {blogDetails?.accountAddress}</p>
-              <span>Last Updated : {blogDetails?.updatedAt}
-              </span>
+              <p>Reference : {blogDetails?.reference}</p>
+              <p className="w-[60%] overflow-hidden truncate">Author : {blogDetails?.accountAddress}</p>
+              <span>Last Updated : {blogDetails?.updatedAt}</span>
               <button className="w-full px-4 py-2 bg-dunamuMain text-white rounded-xl" onClick={handleEdit}>
                 Edit
               </button>

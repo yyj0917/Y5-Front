@@ -32,21 +32,21 @@ const FormSchema = z.object({
 });
 
 export function ArticleForm() {
-    const [showPassword, setShowPassword] = useState(false); // 비밀번호 표시 상태
+  const [showPassword, setShowPassword] = useState(false); // 비밀번호 표시 상태
 
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-    };
-    const form = useForm<z.infer<typeof FormSchema>>({
-        resolver: zodResolver(FormSchema),
-        defaultValues: {
-        title: '',
-        userwallet: '',
-        privateKey: '',
-        textarea: '',
-        source: '',
-        },
-    });
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      title: '',
+      userwallet: '',
+      privateKey: '',
+      textarea: '',
+      source: '',
+    },
+  });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
@@ -106,11 +106,10 @@ export function ArticleForm() {
                   </FormLabel>
                   <FormControl>
                     <Input
-                        id={`walletAddress-${field.name}`}
-
-                        placeholder={field.placeholder}
-                        className="rounded w-full"
-                        {...form.register('userwallet')}
+                      id={`walletAddress-${field.name}`}
+                      placeholder={field.placeholder}
+                      className="rounded w-full"
+                      {...form.register('userwallet')}
                     />
                   </FormControl>
                 </div>
