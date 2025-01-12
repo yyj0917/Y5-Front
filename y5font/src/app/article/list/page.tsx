@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-'use client';
 import { fetchArticleNews } from '@/lib/api/article-news';
 import ArticleCard from '../_components/article-card';
 

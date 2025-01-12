@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = '/api';
+const baseURL = 'http://44.211.172.227:8000';
 
 type BlogPosts = {
   title: string;
