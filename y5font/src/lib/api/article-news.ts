@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = '/custom';
+const baseURL = "/api";
 
 type ArticleNews = {
   title: string;
